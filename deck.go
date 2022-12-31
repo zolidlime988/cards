@@ -3,18 +3,42 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
 // create a type deck which is slice of strings
 type deck []string
 
+// functions
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i, card)
 	}
 }
+func (d deck) shuffleDeck(times int) deck {
+	if times == 0 {
+		fmt.Printf("Shuffle amount remain %d. Return Deck\n", times)
+		return d
+	}
 
+	// seed random number
+	rand.Seed(time.Now().UnixMicro())
+
+	// shuffle by seed
+	rand.Shuffle(len(d), func(i, j int) {
+		d[i], d[j] = d[j], d[i]
+	})
+	fmt.Printf("Shuffle amount remain %d\n", times)
+
+	// recursive shuffle
+	return d.shuffleDeck(times - 1)
+}
+func (d deck) toString() string {
+	return strings.Join(d, "\n")
+}
+
+// recievers
 func newDeck() deck {
 
 	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
@@ -36,17 +60,6 @@ func newDeck() deck {
 
 	return newDeck
 }
-
-func (d deck) shuffle(times int) deck {
-	for i := 0; i < times; i++ {
-		// seed random number
-		rand.Seed(time.Now().UnixMicro())
-
-		// shuffle by seed
-		rand.Shuffle(len(d), func(i, j int) {
-			d[i], d[j] = d[j], d[i]
-		})
-		fmt.Printf("Shuffle amount %d of %d\n", i+1, times)
-	}
-	return d
+func draw(numberOfCards int, deckCards deck) (deck, deck) {
+	return deckCards[0:numberOfCards], deckCards[numberOfCards:]
 }
