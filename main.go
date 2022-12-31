@@ -2,7 +2,9 @@ package main
 
 import "fmt"
 
+var card string
+
 func main() {
-	card := "Ace Of Spades"
+	card = "abc"
 	fmt.Println(card)
 }
