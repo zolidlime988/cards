@@ -35,8 +35,20 @@ func (d deck) shuffleDeck(times int) deck {
 	// recursive shuffle
 	return d.shuffleDeck(times - 1)
 }
+
 func (d deck) toString() string {
 	return strings.Join(d, "\n")
+}
+
+func (d deck) shuff() deck {
+	source := rand.NewSource(time.Now().UnixNano())
+	rand.New(source)
+
+	for i := range d {
+		newInd := rand.Intn(len(d) - 1)
+		d[i], d[newInd] = d[newInd], d[i]
+	}
+	return d
 }
 
 // recievers
@@ -51,13 +63,13 @@ func newDeck() deck {
 			newDeck[i+j*13] = v + " of " + t
 		}
 	}
-	// seed random number
-	rand.Seed(time.Now().UnixMicro())
+	// // seed random number
+	// rand.Seed(time.Now().UnixMicro())
 
-	// shuffle by seed
-	rand.Shuffle(len(newDeck), func(i, j int) {
-		newDeck[i], newDeck[j] = newDeck[j], newDeck[i]
-	})
+	// // shuffle by seed
+	// rand.Shuffle(len(newDeck), func(i, j int) {
+	// 	newDeck[i], newDeck[j] = newDeck[j], newDeck[i]
+	// })
 
 	return newDeck
 }

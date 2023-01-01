@@ -1,5 +1,5 @@
-Seven of Diamonds
-Ace of Spades
+Four of Clubs
 Three of Hearts
-Six of Hearts
-Nine of Spades
+Nine of Hearts
+Three of Diamonds
+Five of Spades
