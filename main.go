@@ -2,7 +2,7 @@ package main
 
 func main() {
 	cards := newDeck()
-	drawCards, cards := draw(5, cards)
+	drawCards, _ := draw(5, cards)
 
 	drawCards.saveToFile("testFile.txt")
 

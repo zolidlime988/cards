@@ -17,28 +17,6 @@ func (d deck) print() {
 		fmt.Println(i, card)
 	}
 }
-func (d deck) shuffleDeck(times int) deck {
-	if times == 0 {
-		fmt.Printf("Shuffle amount remain %d. Return Deck\n", times)
-		return d
-	}
-
-	// seed random number
-	rand.Seed(time.Now().UnixMicro())
-
-	// shuffle by seed
-	rand.Shuffle(len(d), func(i, j int) {
-		d[i], d[j] = d[j], d[i]
-	})
-	fmt.Printf("Shuffle amount remain %d\n", times)
-
-	// recursive shuffle
-	return d.shuffleDeck(times - 1)
-}
-
-func (d deck) toString() string {
-	return strings.Join(d, "\n")
-}
 
 func (d deck) shuff() deck {
 	source := rand.NewSource(time.Now().UnixNano())
