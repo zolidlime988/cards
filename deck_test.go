@@ -21,7 +21,6 @@ func TestNewDeck(t *testing.T) {
 
 func TestSaveToFileAndNewDeckFromFile(t *testing.T) {
 	testFileName := "_deckTesting.txt"
-	os.Remove(testFileName)
 	deck := newDeck()
 	deck.saveToFile(testFileName)
 
@@ -35,4 +34,5 @@ func TestSaveToFileAndNewDeckFromFile(t *testing.T) {
 	if d[len(d)-1] != "King of Diamonds" {
 		t.Errorf("Expected King of Diamonds, got %v", d[len(d)-1])
 	}
+	os.Remove(testFileName)
 }
