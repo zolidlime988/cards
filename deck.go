@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
@@ -62,4 +63,20 @@ func newDeck() deck {
 }
 func draw(numberOfCards int, deckCards deck) (deck, deck) {
 	return deckCards[0:numberOfCards], deckCards[numberOfCards:]
+}
+func newDeckFromFile(file string) deck {
+	bs, err := os.ReadFile(file)
+	if err != nil {
+		fmt.Printf("error reading: %v\n", err)
+		os.Exit(1)
+	}
+	return deck(strings.Split(string(bs), "\n"))
+}
+
+func (deck deck) saveToFile(file string) {
+	err := os.WriteFile(file, byteString(strings.Join(deck, "\n")), 0666)
+	if err != nil {
+		fmt.Printf("error writing: %v\n", err)
+		os.Exit(1)
+	}
 }
